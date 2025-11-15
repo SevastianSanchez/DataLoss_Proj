@@ -1,13 +1,13 @@
 "dataset_id","dataset_name","total_countries","matched_countries","unmatched_countries","match_rate"
 1,"Varieties of Democracy (V-Dem)",178,178,0,100
 2,"Statistical Performance Indicators (SPI)",217,217,0,100
-3,"Sustainable Development Goals (SDG)",353,193,160,54.6742209631728
-4,"Sustainable Development Goals (Raw Indicators)",343,193,150,56.268221574344
+3,"Sustainable Development Goals (SDG)",337,193,144,57.2700296735905
+4,"Sustainable Development Goals (Raw Indicators)",328,193,135,58.8414634146341
 5,"Episodes of Regime Transition (ERT-VDem)",178,178,0,100
 6,"GDP per capita",658,217,441,32.9787234042553
 7,"Information Capacity",67,67,0,100
 8,"GNI Classification",0,0,0,0
-9,"Access to Electricity",707,217,490,30.6930693069307
-10,"Rural Population %",707,217,490,30.6930693069307
-11,"Research and Development Expenditure",707,217,490,30.6930693069307
-12,"total_population",707,217,490,30.6930693069307
+9,"Access to Electricity",658,217,441,32.9787234042553
+10,"Rural Population %",658,217,441,32.9787234042553
+11,"Research and Development Expenditure",658,217,441,32.9787234042553
+12,"total_population",658,217,441,32.9787234042553

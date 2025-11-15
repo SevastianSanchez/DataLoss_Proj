@@ -14,8 +14,8 @@ source("packages.R")
 ### Loading Data & Initial ID Checks
 ```{r}
 # UNHASH ONLY IF INPUT DATA CHANGES [SET TO PROJECT DEFAULT DATA]
-# source("wrangling/df_years2.0_Function_dataloss_proj.R") #load function
-# merged_full <- df_years2.0(2004, 2023) #specify start & end year
+#source("wrangling/df_years2.0_Function_dataloss_proj.R") #load function
+#merged_full <- df_years2.0(2015, 2023) #specify start & end year
 
 # read merged dataframe
 merged_full <- read_csv("data/output/merged_df.csv")
@@ -73,5 +73,42 @@ remaining_inconsistencies <- cleaned_data %>%
   ungroup()
 print(remaining_inconsistencies) # should be empty
 ```
+**NOTE:** This unit test verifies that no countries with all SDG indicators missing remain in the cleaned dataset after the removal step. If the output is empty, it confirms that the cleaning process was successful in this regard.
+
+## 4) Missing Data Inspection (Controls)
+***Specific Controls:*** gdp_pc, total_pop, electric_access, rural_pop_pct, rd_expenditure_pct, regime_type_2, regime_type_4, income_level
+```{r}
+# Checking missingness across panel
+all_country_years <- expand.grid(
+  country_code = unique(cleaned_data$country_code),
+  year = unique(cleaned_data$year)
+)
+check_df <- left_join(all_country_years, cleaned_data, 
+                      by = c("country_code", "year"))
+
+# Change variable name as needed
+inspect_x <- "gdp_pc" # Example: Check for missing values in 'gdp_pc'
+
+missing_varX <- check_df %>% 
+  arrange(country_code, year) %>%
+  select(country_code, year, all_of(inspect_x)) %>%
+  filter(is.na(.data[[inspect_x]]))
+print(missing_varX)
+```
+
+
+## 5) Data Types and Final Checks
+```{r}
+# converting data types for panel suitability 
+cleaned_data$country_code <- as.character(cleaned_data$country_code)
+cleaned_data$year <- as.integer(cleaned_data$year)
+
+# checking panel structure
+ftable(cleaned_data$country_code, cleaned_data$year)
+
+#data types
+str(cleaned_data)
+```
+
 
 
