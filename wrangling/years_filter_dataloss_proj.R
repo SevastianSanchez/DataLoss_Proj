@@ -79,7 +79,7 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
            country_code = id) %>%
     dplyr::filter(year >= start_yr, year <= end_yr)
   
-  #ERT DATASET - REGIME CHANGE VARIABLES
+  # ERT DATASET - REGIME CHANGE VARIABLES
   name5 <- df5 %>%
     dplyr::select(country_name, country_text_id, country_id, year, reg_type, 
                   v2x_polyarchy, row_regch_event, reg_trans, dem_ep, 
@@ -97,13 +97,13 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
            aut_ep_start_yr = aut_ep_start_year,
            aut_ep_end_yr = aut_ep_end_year)
   
-  #GDP PER CAPITA
+  # GDP PER CAPITA
   name6 <- df6 %>% 
     dplyr::select(country_name, country_code, year, gdp_pc) %>% 
     dplyr::mutate(log_gdppc = log(gdp_pc)) %>% 
     dplyr::filter(year >= start_yr, year <= end_yr)
    
-  #INFO CAPACITY
+  # INFO CAPACITY
   name7 <- df7 %>% 
     dplyr::select(country_id, ccodecow, year, infcap_irt, infcap_pca, everything()) %>% 
     dplyr::mutate(
@@ -122,7 +122,7 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
     #dplyr::select(-ccodecow, -country_id) %>%  # Remove conflicting columns
     dplyr::filter(year >= start_yr, year <= end_yr)
   
- #WB Income Classifications 
+ # WB INCOME CLASSIFICATIONS 
   name8 <- df8 %>% 
     dplyr::mutate(income_level = na_if(income_level, "..")) %>% 
     dplyr::mutate(income_level_lab = factor(income_level, 
