@@ -100,4 +100,7 @@ plot_backsliding_trends_z <- function(data, country_code, start_year = 2015, end
 }
 ```
 
+```{r}
+plot_backsliding_trends_z(backsliding_data, "UKR")
+```
 

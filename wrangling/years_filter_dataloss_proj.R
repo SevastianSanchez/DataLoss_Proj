@@ -1,5 +1,5 @@
-library(tidyverse)
-library(countrycode)
+if (!requireNamespace("tidyverse", quietly = TRUE)) library(tidyverse)
+if (!requireNamespace("countrycode", quietly = TRUE)) library(countrycode)
 
 #calls sources
 source("data/data_sources_dataloss_proj.R")
@@ -16,7 +16,8 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
                           df8=gni_class, #gni_class data ONLY
                           df9=electric, #electric data ONLY
                           df10=rural, #rural data ONLY
-                          df11=r_and_d #r_and_d data ONLY
+                          df11=r_and_d, #r_and_d data ONLY
+                          df12=total_population #total_population data ONLY
                           #df10=odin, odin_yr=yr1 #odin data ONLY
                           ){ 
   
@@ -50,7 +51,6 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
   name2 <- df2 %>% 
     dplyr::select(country, iso3c, date, SPI.INDEX, SPI.INDEX.PIL1, SPI.INDEX.PIL2, 
                   SPI.INDEX.PIL3, SPI.INDEX.PIL4, SPI.INDEX.PIL5, income, region, weights) %>% 
-    #rename(country_code = iso3c) %>% 
     rename(year = date,
            spi_comp = SPI.INDEX,
            p1_use = SPI.INDEX.PIL1, 
@@ -106,7 +106,6 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
   #INFO CAPACITY
   name7 <- df7 %>% 
     dplyr::select(country_id, ccodecow, year, infcap_irt, infcap_pca, everything()) %>% 
-    # Fix problematic COW codes before conversion
     dplyr::mutate(
       ccodecow = as.numeric(ccodecow),
       ccodecow = case_when(
@@ -131,7 +130,7 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
       labels = c("High Income Countries", 
                  "Upper-Middle Income Countries", 
                  "Lower-Middle Income Countries", 
-                 "Low Income Countries")  # Full descriptive labels
+                 "Low Income Countries") # Full descriptive labels
     )) %>% 
     dplyr::rename(iso3c = country_code) %>%
     dplyr::mutate(iso3c = as.character(iso3c)) %>% 
@@ -139,20 +138,26 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
   
   # ELECTRICITY ACCESS
   name9 <- df9 %>%
-    dplyr::select(iso3c, country, year, EG.ELC.ACCS.ZS) %>%
+    dplyr::select(country, iso3c, year, EG.ELC.ACCS.ZS) %>%
     rename(electric_access = EG.ELC.ACCS.ZS) %>% 
     dplyr::filter(year >= start_yr, year <= end_yr)
   
   # RURAL POPULATION %
   name10 <- df10 %>%
-    dplyr::select(iso3c, country, year, SP.RUR.TOTL.ZS) %>%
+    dplyr::select(country, iso3c, year, SP.RUR.TOTL.ZS) %>%
     rename(rural_pop_pct = SP.RUR.TOTL.ZS) %>%
     dplyr::filter(year >= start_yr, year <= end_yr)
   
   # R&D EXPENDITURE %
   name11 <- df11 %>%
-    dplyr::select(iso3c, country, year, GB.XPD.RSDV.GD.ZS) %>%
+    dplyr::select(country, iso3c, year, GB.XPD.RSDV.GD.ZS) %>%
     rename(rd_expenditure_pct = GB.XPD.RSDV.GD.ZS) %>%
+    dplyr::filter(year >= start_yr, year <= end_yr)
+  
+  # TOTAL POPULATION
+  name12 <- df12 %>% 
+    dplyr::select(country, iso3c, year, SP.POP.TOTL) %>%
+    rename(total_pop = SP.POP.TOTL) %>%
     dplyr::filter(year >= start_yr, year <= end_yr)
   
   return(list(vdem = name1, 
@@ -165,8 +170,9 @@ years_filter <- function(start_yr = 2005, end_yr = 2024,
               gni_class = name8, 
               electric = name9,
               rural = name10,
-              r_and_d = name11))
+              r_and_d = name11,
+              total_population = name12))
   
 } 
 
-testing_years_filter <- years_filter(start_yr = 2014, end_yr = 2015) # Example usage to test the function
+#testing_years_filter <- years_filter(start_yr = 2014, end_yr = 2015) # Example usage to test the function

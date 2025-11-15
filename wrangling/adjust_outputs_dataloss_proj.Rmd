@@ -7,7 +7,7 @@ output: html_document
 
 ```{r include=FALSE}
 # set working directory 
-setwd("~/Documents/GitHub/QMSS_Thesis_Sanchez")
+setwd("~/Desktop/SIPA/Fall 25' - SIPA/Policy Data Analysis Using R/DataLoss_Proj")
 
 #load libraries 
 source("packages.R")
@@ -17,28 +17,27 @@ source("packages.R")
 *[ADJUST TIME OR SKIP IF YOU'RE LOADING DATA FROM DIRECTORY]*
 
 ```{r eval=FALSE, include=FALSE}
-# df_years2.0():[Updated Version] 
-# Function used for extracting all available country data from datasets in specified year range
-
-source("wrangling/df_years2.0_Function.R") #load function
+#source("wrangling/df_years2.0_Function_dataloss_proj.R") #load function
 #merged_full <- df_years2.0(2004, 2023) #specify start & end year
 
+merged_full <- read_csv("data/output/merged_df.csv") #load from directory
+
 # Robustness check for missing identifier variables: country_code, country_name and year
-check_missing_identifiers <- function(df) {
+check_missing_identifiers <- function(df){
   missing_rows <- sum(is.na(df$country_code) | is.na(df$country_name) | is.na(df$year))
   print(paste("Number of rows with missing identifiers:", missing_rows))
   return(missing_rows)}
 missing_ids <- check_missing_identifiers(merged_full)
 
-# NEW full version as CSV output (unhash when certain)
-write_csv(merged_full, file = 'data/Main CSV Outputs/merged_full_NEW.csv')
+# full dataframe saved to directory (checked for missing identifiers)
+write_csv(merged_full, file = 'data/output/merged_full.csv')
 ```
 
 ## Cross Sectional Data (Comp 1)
 - Prioritizing SDG data
 - Country-years are independent units
 ```{r}
-merged_full <- read_csv("data/Main CSV Outputs/merged_full_NEW.csv")
+merged_full <- read_csv("data/output/merged_full.csv")
 
 # All observations with an sdg_overall value
 comp1_sdg_data <- merged_full %>%

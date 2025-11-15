@@ -10,7 +10,8 @@
 #income class = country_code
 #gini = Code
 
-### THIS A RECREATED VERSION OF df_years2.0 AS OF 10/27/2025, SPECIFICALLY FOR PURPOSES OF POLICY R PROJECT ###
+### THIS A RECREATED VERSION OF df_years2.0 AS OF 10/27/2025, 
+### SPECIFICALLY FOR PURPOSES OF POLICY R PROJECT
 
 # Load required packages if not already loaded
 if (!requireNamespace("dplyr", quietly = TRUE)) library(dplyr)
@@ -34,7 +35,8 @@ DATASET_DISPLAY_NAMES <- c(
 
 country_colnames <- c(
   "country", "Country", "country_code", "COWcode", "cowcode", "iso3", "iso3c", 
-  "country_name", "country_id", "countryname", "Entity", "Code", "country_text_id", "countryid"
+  "country_name", "country_id", "countryname", "Entity", "Code", "country_text_id", 
+  "countryid"
 )
 
 # Define non-countries to exclude (regions, groups, etc.)
@@ -126,7 +128,7 @@ is_custom_name <- function(name) {
   return(!is.na(name) && name %in% names(custom_match_forward))
 }
 
-# Global country reference - create this once
+# Global country reference 
 COUNTRY_REFERENCE <- create_country_reference()
 
 # Function to standardize country codes and track matches/non-matches
@@ -969,5 +971,12 @@ get_country_matching_logs <- function(data) {
 
 # Example usage | NEWEST VERSION OF df_years2.0 AS OF 8/19/2025
 merged_df <- df_years2.0(2015, 2024)
+
+## TEMPORARY FIX [INCLUDING GNI CLASS]
+merged_df <- merged_df %>%
+  select(-income_level) %>% 
+  left_join(gni_class %>% select(country_code, year, income_level),
+            by = c("country_code", "year"))
+
 # save testing_df_years2.0
 write_csv(merged_df, "data/output/merged_df.csv")
