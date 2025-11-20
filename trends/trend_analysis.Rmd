@@ -13,13 +13,15 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #load libraries/packages
 # set working directory
-setwd("~/Documents/GitHub/QMSS_Thesis_Sanchez")
+setwd("~/Desktop/SIPA/Fall 25' - SIPA/Policy Data Analysis Using R/DataLoss_Proj")
 
 #load libraries/packages
 source("packages.R")
 
 # load data
-source("Comp2_panel_wrangling.R")
+#source("Comp2_panel_wrangling.R")
+
+panel_data <- read_csv("data/output/cleaned_data.csv")
 
 trends <- panel_data %>% filter(year >= 2015)
 ```

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Democratic Backsliding and SDG Data Missingness</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Priskila Nandita, Naz Hussein, Sevastian Sanchez" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Democratic Backsliding and SDG Data Missingness
+]
+.subtitle[
+## Preliminary descriptive &amp; TWFE results
+]
+.author[
+### Priskila Nandita, Naz Hussein, Sevastian Sanchez
+]
+.institute[
+### Columbia University | SIPA
+]
+
+---
+
+&lt;style&gt;
+.underline {
+  text-decoration: underline;
+}
+&lt;/style&gt;
+
+&lt;style&gt;
+.remark-slide-content:not(.title-slide) {
+  background-color: #F0F2E2; /* Light lavender pastel */
+}
+&lt;/style&gt;
+
+&lt;style&gt;
+.title-slide {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url("https://images.unsplash.com/photo-1584931423298-c576fda54bd2?q=80&amp;w=1740&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+}
+&lt;/style&gt;
+
+
+
+# Introduction (research motivation)
+
+- SDG reporting is central for monitoring progress on the 2030 Agenda, but SDG data are often incomplete, particularly in lower-capacity states.  
+- At the same time, many countries are experiencing **democratic backsliding**.  
+- We ask whether **autocratization is associated with weaker SDG reporting**, using a country–year panel:
+  - 172 countries  
+  - years 2015–2023  
+  - 17 SDG goals and V-Dem democracy indicators.
+
+---
+
+# Policy background
+
+- The SDGs require governments to **collect, harmonise, and publish indicators regularly**, often with disaggregated breakdowns.  
+- Implementation is shaped by:
+  - administrative and statistical capacity,  
+  - fiscal and human-resource constraints,  
+  - political incentives to disclose or hide information.  
+- Democratic backsliding may:
+  - weaken checks and balances and press freedom,  
+  - politicise national statistics,  
+  - deprioritise SDG monitoring relative to regime survival.
+
+---
+
+# Data description
+
+**Outcome**
+
+- Proportion of SDG indicators that are missing for country `\(i\)` in year `\(t\)`.
+
+**Key explanatory variables**
+
+- V-Dem **Electoral Democracy Index** (elect_dem) 
+- Autocratization episodes (V-Dem):
+  - episode indicator 
+  - first onset year
+
+**Controls**
+
+- `\(log(\text{GDP per capita})\)`, `\(log(\text{population})\)`,  
+- R&amp;D expenditure (% of GDP), rural population share, electricity access,  
+
+
+---
+
+# Descriptive statistics: SDG missingness
+
+![](Slides-Template-SDG-Dems-Alt_files/figure-html/desc-missing-1.png)&lt;!-- --&gt;
+---
+
+# Descriptive statistics: SDG missingness
+
+---
+
+# Descriptive statistics: democracy variables
+
+
+|Democratic trajectory | Number of countries|
+|:---------------------|-------------------:|
+|Backsliding only      |                  40|
+|Both episodes         |                  21|
+|Democratizing only    |                  19|
+|No major episode      |                  92|
+---
+# Descriptive statistics: democracy variables
+
+
+---
+
+# Missingness vs democracy
+
+![](Slides-Template-SDG-Dems-Alt_files/figure-html/miss-vs-dem-1.png)&lt;!-- --&gt;
+
+---
+
+# Empirical strategy: Staggered Difference-in-Differences
+
+Our empirical strategy uses a **staggered Difference-in-Differences (DiD)** design because:
+
+- Countries experience autocratization in **different years**.
+- Standard DiD or TWFE assumes simultaneous treatment, which is incorrect.
+- TWFE can produce **biased** and sometimes **incorrectly signed** estimates in staggered settings.
+- Modern causal inference recommends **Sun &amp; Abraham (2021)** or **Callaway &amp; Sant’Anna (2021)** for staggered adoption.
+
+**Goal:** Estimate the effect of autocratization on SDG data missingness **while properly accounting for heterogeneous timing and dynamic effects**.
+
+---
+
+# Staggered DiD: PRF
+
+
+We model the impact of autocratization using an event-time parameterization:
+
+\[
+Y_{it}
+= \alpha_i + \lambda_t
++ \sum_{k \neq -1} \beta_k \mathbf{1}(t - G_i = k)
++ X_{it}'\gamma
++ \varepsilon_{it}
+\]
+
+Where:
+
+- \(Y_{it}\): SDG missingness in country \(i\), year \(t\)  
+- \(G_i\): first autocratization year for country \(i\)  
+- \(k\): event time (years relative to treatment)  
+- \(\beta_k\): dynamic treatment effects relative to baseline year \(-1\)  
+- \(\alpha_i\): country fixed effects  
+- \(\lambda_t\): year fixed effects  
+- \(X_{it}\): socioeconomic controls  
+- \(\varepsilon_{it}\): error term
+
+This is the structure behind modern staggered DiD estimators.
+
+---
+# Challenges
+
+- **Few treated units** within the SDG time window (post-2015).
+- **Limited pre-treatment years** restricts parallel trends assessment.
+- **Measurement issues** in SDG indicators (different goals = different reporting burdens).
+- **Political event coding uncertainty** in V-Dem.
+- **Confounders**:
+  - administrative reforms,
+  - public sector capacity,
+  - budget shocks,
+  - crises that affect data generation.
+
+These constraints impact statistical power and interpretation.
+
+---
+
+# Future Strategy
+
+- **Refine treatment definitions**  
+  e.g., severity of drop in democracy scores, or alternative regime measures.
+
+- **Segment analysis**  
+  - low-income vs middle-income vs high-income countries,  
+  - regions (Europe, Africa, Asia),  
+  - baseline statistical capacity.
+
+- **Add governance/institutional variables**
+  - independence of national statistics office,
+  - budget for data systems,
+  - open data legislation.
+
+- **Enhanced event-study design**
+  - allow nonlinear trajectories,
+  - capture anticipatory effects,
+  - investigate lag structures.
+
+Combining statistical results with qualitative case studies (Hungary, Turkey) strengthens interpretation and policy relevance.
+
+---
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "mathjax": "default",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

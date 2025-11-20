@@ -19,15 +19,12 @@ library(reshape2)
 library(dplyr)
 library(car)  # For VIF calculation
 
-# set working directory
-#setwd("~/Documents/GitHub/QMSS_Thesis_Sanchez")
-
 #load libraries/packages
 source("packages.R")
 
-# load data
-#source("Comp2_panel_wrangling.R")
-merged <- read_csv("wrangling/output/...") # updated 
+# From RData
+load("naz_priskilla_stuff/sdg_democracy_paneldata.RData") # updated 
+merged <- df2
 
 # Extract the data 
 corr_data <- merged %>%
