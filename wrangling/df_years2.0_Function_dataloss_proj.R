@@ -13,9 +13,10 @@
 ### THIS A RECREATED VERSION OF df_years2.0 AS OF 10/27/2025, 
 ### SPECIFICALLY FOR PURPOSES OF POLICY R PROJECT
 
-# Load required packages if not already loaded
-if (!requireNamespace("dplyr", quietly = TRUE)) library(dplyr)
-if (!requireNamespace("countrycode", quietly = TRUE)) library(countrycode)
+if (!require("pacman")) install.packages("pacman")
+library(pacman)
+# load necessary packages
+pacman::p_load(dplyr, countrycode)
 
 # More descriptive display names mapping (optional)
 ## default to df list name if not provided (e.g. "ert")

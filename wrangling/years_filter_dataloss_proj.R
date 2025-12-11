@@ -1,5 +1,7 @@
-if (!requireNamespace("tidyverse", quietly = TRUE)) library(tidyverse)
-if (!requireNamespace("countrycode", quietly = TRUE)) library(countrycode)
+if (!require("pacman")) install.packages("pacman")
+library(pacman)
+# load necessary packages
+pacman::p_load(tidyverse, countrycode)
 
 #calls sources
 source("data/data_sources_dataloss_proj.R")

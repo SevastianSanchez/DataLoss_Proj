@@ -6,27 +6,27 @@ output: html_document
 # load data and packages
 ```{r}
 # set working directory
-setwd("~/Documents/GitHub/QMSS_Thesis_Sanchez")
+setwd("~/Desktop/SIPA/Fall 25' - SIPA/Policy Data Analysis Using R/DataLoss_Proj")
 #load libraries/packages
 source("packages.R")
 # load data
-source("Comp2_panel_wrangling.R")
+panel_data <- read_csv("data/output/cleaned_data.csv")
 ```
 
 ```{r}
-# filter for countries that have experienced backsliding
-backsliders <- panel_data %>%
+# filter for countries that have experienced full regime transition to autocratization since 2015
+aut_change <- panel_data %>%
   filter(year >= 2015, regch_event < 0) %>%
   group_by(country_code) %>%
   summarise(backsliding_years = n()) %>%
   filter(backsliding_years > 0) %>%
   ungroup()
 
-# Get the list of backsliding countries
-backsliding_countries <- backsliders$country_code
+# Get the list of regressed countries
+aut_change1 <- aut_change$country_code
 # Filter the main data for backsliding countries
-backsliding_data <- panel_data %>%
-  filter(country_code %in% backsliding_countries, year >= 2015) %>%
+aut_transitioned <- panel_data %>%
+  filter(country_code %in% aut_change1) %>%
   arrange(country_code, year)
 
 ```
@@ -42,7 +42,7 @@ plot_backsliding_trends <- function(data, country_code, start_year = 2015, end_y
   
   # Reshape data for plotting
   country_data_long <- pivot_longer(country_data, 
-                                    cols = c(sdg_overall, spi_comp, di_score, log_gdppc),
+                                    cols = c(missingness, elect_dem, electric_access, log_gdppc),
                                     names_to = "variable", 
                                     values_to = "value")
   
@@ -100,7 +100,4 @@ plot_backsliding_trends_z <- function(data, country_code, start_year = 2015, end
 }
 ```
 
-```{r}
-plot_backsliding_trends_z(backsliding_data, "UKR")
-```
 

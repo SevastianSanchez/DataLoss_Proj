@@ -3,7 +3,7 @@ library(dplyr)
 library(tidyr)
 library(purrr)
 
-load("naz_priskilla_stuff/sdg_democracy_paneldata.RData") # updated 
+load("data/output/sdg_democracy_paneldata.RData") # updated 
 
 # Extract the data 
 corr_data <- df2 %>%

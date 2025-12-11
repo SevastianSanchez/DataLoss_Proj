@@ -19,7 +19,7 @@ panel_data1 <- panel_data %>%
     elect_dem_change_5yr = dplyr::lead(elect_dem, 5) - elect_dem,
     
     # Autocratization: Set thresholds for significant drops (adjust these as needed)
-    abrupt_drop_threshold = -0.5,    # Single year drop threshold
+    abrupt_drop_threshold = -0.5, # Single year drop threshold
     cumulative_drop_threshold = -0.75, # Multi-year drop threshold
     
     # Autocratization: Identify different types of drops
