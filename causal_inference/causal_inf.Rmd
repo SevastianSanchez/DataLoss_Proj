@@ -8,7 +8,7 @@ output: html_document
 source("packages.R") 
 
 # load data
-load("sdg_democracy_paneldata.RData") # load pre-saved panel data
+load("causal_inference/sdg_democracy_paneldata.RData") # load pre-saved panel data
 
 # select only the relevant columns for the analysis
 panel_data <- df2 %>%

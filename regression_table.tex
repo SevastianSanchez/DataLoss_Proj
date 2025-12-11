@@ -1,0 +1,45 @@
+
+\begingroup
+\centering
+\begin{tabular}{lccc}
+   \tabularnewline \midrule \midrule
+   Dependent Variable: & \multicolumn{3}{c}{prop\_sdg\_missing}\\
+   Model:                                   & (1)             & (2)             & (3)\\  
+   \midrule
+   \emph{Variables}\\
+   backsliding                              & 0.0606$^{**}$   & 0.0606$^{**}$   &   \\   
+                                            & (0.0293)        & (0.0293)        &   \\   
+   democratization                          & 0.0267          & 0.0267          &   \\   
+                                            & (0.0328)        & (0.0328)        &   \\   
+   log\_gdppc                               & -0.0003         & -0.0003         & -0.0144$^{**}$\\   
+                                            & (0.0067)        & (0.0067)        & (0.0067)\\   
+   rural\_pop\_pct                          & 0.0023          & 0.0023          & -0.0018\\   
+                                            & (0.0015)        & (0.0015)        & (0.0016)\\   
+   electric\_access                         & -0.0010$^{***}$ & -0.0010$^{***}$ & 0.0003\\   
+                                            & (0.0003)        & (0.0003)        & (0.0003)\\   
+   change\_categoryModeratebacksliding      &                 &                 & 0.0014\\   
+                                            &                 &                 & (0.0020)\\   
+   change\_categoryLargebacksliding         &                 &                 & 0.0038\\   
+                                            &                 &                 & (0.0040)\\   
+   change\_categoryModeratedemocratization  &                 &                 & -0.0017\\   
+                                            &                 &                 & (0.0024)\\   
+   change\_categoryLargedemocratization     &                 &                 & -0.0002\\   
+                                            &                 &                 & (0.0037)\\   
+   log\_pop                                 &                 &                 & -0.0024\\   
+                                            &                 &                 & (0.0336)\\   
+   \midrule
+   \emph{Fixed-effects}\\
+   country\_code                            & Yes             & Yes             & Yes\\  
+   year                                     & Yes             & Yes             & Yes\\  
+   \midrule
+   \emph{Fit statistics}\\
+   Observations                             & 1,338           & 1,338           & 1,174\\  
+   R$^2$                                    & 0.94790         & 0.94790         & 0.95637\\  
+   Within R$^2$                             & 0.01867         & 0.01867         & 0.01030\\  
+   \midrule \midrule
+   \multicolumn{4}{l}{\emph{Clustered (country\_code) standard-errors in parentheses}}\\
+   \multicolumn{4}{l}{\emph{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1}}\\
+\end{tabular}
+\par\endgroup
+
+
