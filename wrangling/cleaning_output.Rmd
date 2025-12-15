@@ -180,6 +180,16 @@ cleaned_data <- cleaned_data %>%
   )
 ```
 
+## 6) Uploading Missingness Variable 
+```{r}
+# source missingness variable creation script
+source('___missingness_var.R-script____')
+
+## [INSERT MERGING CODE HERE TO MERGE MISSINGNESS VARS INTO cleaned_data]
+
+```
+
+
 ## 6) Exporting Cleaned Data
 ```{r}
 # export cleaned data

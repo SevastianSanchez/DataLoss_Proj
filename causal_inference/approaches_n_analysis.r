@@ -12,7 +12,7 @@ theme_set(theme_minimal(base_size = 12))
 ################################################################################
 
 # Load data
-df <- read.csv("data/output/ES_panel_data.csv")
+df <- read.csv("ES_panel_data.csv")
 
 # Create panel data structure
 df <- df %>%
